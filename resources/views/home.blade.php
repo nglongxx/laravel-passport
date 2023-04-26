@@ -30,7 +30,7 @@
                     @endforeach
                 </div>
                 <div class="mt-3 p-6 bg-white border-b border-gray-200">
-                    <form action="{{ route('passport.clients.store') }}" method="POST">
+                    <form action="/oauth/clients" method="POST">
                         <div>
                             <label for="name">Name</label>
                             <input type="text" name="name" placeholder="Client Name">
@@ -53,3 +53,27 @@
     </div>
 </div>
 @endsection
+
+@push('script')
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    // axios.get('/oauth/clients')
+    // .then(response => {
+    //     console.log(response.data);
+    // });
+
+    const data = {
+    name: 'test',
+    redirect: 'http://laravel-app.test/callback'
+};
+
+axios.post('/oauth/clients', data)
+    .then(response => {
+        console.log(response.data);
+    })
+    .catch (response => {
+        // List errors on response...
+    });
+</script>
+
+@endpush
