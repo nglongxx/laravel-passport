@@ -30,7 +30,7 @@
                     @endforeach
                 </div>
                 <div class="mt-3 p-6 bg-white border-b border-gray-200">
-                    <form action="/oauth/clients" method="POST">
+                    <form action="" method="POST">
                         <div>
                             <label for="name">Name</label>
                             <input type="text" name="name" placeholder="Client Name">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="mt-3">
                             @csrf
-                            <button type="submit">Create Client</button>
+                            <button type="button" onclick=addClient() >Create Client</button>
                         </div>
                     </form>
                 </div>
@@ -61,19 +61,23 @@
     // .then(response => {
     //     console.log(response.data);
     // });
+function addClient() {
+        let name = $("input[name*='name']").val();
+        let redirect = $("input[name*='redirect']").val();
+        const data = {
+        name: name,
+        redirect: redirect
+    };
 
-    const data = {
-    name: 'test',
-    redirect: 'http://laravel-app.test/callback'
-};
-
-axios.post('/oauth/clients', data)
-    .then(response => {
-        console.log(response.data);
-    })
-    .catch (response => {
-        // List errors on response...
-    });
+    axios.post('/oauth/clients', data)
+        .then(response => {
+            console.log(response.data);
+            location.reload();
+        })
+        .catch (response => {
+            // List errors on response...
+        });
+    }
 </script>
 
 @endpush
